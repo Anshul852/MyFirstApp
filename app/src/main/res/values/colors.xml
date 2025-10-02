@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#7F70E4</color>
-    <color name="colorPrimaryDark">#7F70E4</color>
-    <color name="colorAccent">#7F70E4</color>
-
-    <color name="subTextColor">#7e7e7e</color>
-    <color name="mainBgColor">#ffffff</color>
-    <color name="hairLineColor">#d6d6d6</color>
-    <color name="mainTextColor">#000000</color>
-
-    <color name="black_overlay">#66000000</color>
+    <!-- Primary Brand Colors -->
+    <color name="primary_blue">#3498DB</color>
+    <color name="primary_blue_dark">#2980B9</color>
+    <color name="accent_green">#27AE60</color>
+    <color name="accent_orange">#F39C12</color>
+    
+    <!-- Background Colors -->
+    <color name="background_primary">#F8F9FA</color>
+    <color name="background_secondary">#FFFFFF</color>
+    <color name="background_card">#FFFFFF</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#2C3E50</color>
+    <color name="text_secondary">#7F8C8D</color>
+    <color name="text_hint">#BDC3C7</color>
+    
+    <!-- Button Colors -->
+    <color name="button_primary">#3498DB</color>
+    <color name="button_secondary">#ECF0F1</color>
+    <color name="button_success">#27AE60</color>
+    <color name="button_warning">#F39C12</color>
+    <color name="button_danger">#E74C3C</color>
+    
+    <!-- Status Colors -->
+    <color name="success">#2ECC71</color>
+    <color name="warning">#F1C40F</color>
+    <color name="error">#E74C3C</color>
+    <color name="info">#3498DB</color>
 </resources>

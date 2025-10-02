@@ -11,4 +11,8 @@ data class UserModel(
     var fcmToken: String = "",
     var selected: Boolean = false,
     var userName: String = ""
+    val careerInterest: String = "",
+    val currentYear: Int = 0,
+    val skills: List<String> = emptyList()
+
 )

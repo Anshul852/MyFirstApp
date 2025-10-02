@@ -15,47 +15,51 @@ import com.instamobile.firebaseStarterKit.utils.Prefs
 import com.instamobile.ui.fragment.onBoarding.walkthroughactivity.databinding.FragmentOnBoardingBinding
 import kotlinx.android.synthetic.main.fragment_on_boarding.*
 
-class OnBoarding : Fragment() {
-    private var sliderAdapter: SliderAdapter =
-        SliderAdapter()
-    private lateinit var viewModel: OnBoardingViewModel
-    private lateinit var binding: FragmentOnBoardingBinding
-
+class CareerAssessmentFragment : Fragment() {
+    // Change adapter to handle assessment questions
+    private var assessmentAdapter: CareerAssessmentAdapter = CareerAssessmentAdapter()
+    private lateinit var viewModel: CareerAssessmentViewModel
+    private lateinit var binding: FragmentCareerAssessmentBinding
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(OnBoardingViewModel::class.java)
-        binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
-        binding.onBoardingViewModel = viewModel
+        viewModel = ViewModelProviders.of(this).get(CareerAssessmentViewModel::class.java)
+        binding = FragmentCareerAssessmentBinding.inflate(inflater, container, false)
+        binding.careerAssessmentViewModel = viewModel
         binding.lifecycleOwner = this
-
-        viewModel.dataSet.observe(this, Observer {
-            viewPager2.adapter = sliderAdapter
-            sliderAdapter.setItems(it)
+        
+        // Load career assessment questions instead of onboarding slides
+        viewModel.assessmentQuestions.observe(this, Observer {
+            binding.viewPager2.adapter = assessmentAdapter
+            assessmentAdapter.setQuestions(it)
             TabLayoutMediator(
-                indicator,
-                viewPager2,
+                binding.indicator,
+                binding.viewPager2,
                 object : TabLayoutMediator.TabConfigurationStrategy {
                     override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
-                        viewPager2.setCurrentItem(tab.position, true)
+                        binding.viewPager2.setCurrentItem(tab.position, true)
                     }
                 }).attach()
         })
-        viewModel.startNavigation.observe(this, Observer {
+        
+        // Navigate to results screen after assessment completion
+        viewModel.assessmentComplete.observe(this, Observer {
             if (it) {
                 this.findNavController()
-                    .navigate(OnBoardingDirections.actionOnBoardingToAuthFragment())
-                Prefs.getInstance(context!!)!!.hasCompletedWalkthrough = false
+                    .navigate(CareerAssessmentDirections.actionAssessmentToResults())
+                Prefs.getInstance(context!!)!!.hasCompletedCareerAssessment = true
                 viewModel.doneNavigation()
             }
         })
+        
         binding.viewPager2.registerOnPageChangeCallback(viewModel.pagerCallBack)
         return binding.root
     }
-
+    
     override fun onDestroyView() {
         super.onDestroyView()
-        viewPager2.unregisterOnPageChangeCallback(viewModel.pagerCallBack)
+        binding.viewPager2.unregisterOnPageChangeCallback(viewModel.pagerCallBack)
     }
 }
